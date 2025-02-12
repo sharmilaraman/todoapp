@@ -66,7 +66,7 @@ const ToDoList = () => {
    
      const handleScroll = () => {
        const { scrollTop, scrollHeight, clientHeight } = currentMainRef;
-       setShowFooter(scrollTop + clientHeight >= scrollHeight);
+       setShowFooter(scrollTop + clientHeight >= scrollHeight -1);
      };
    
      currentMainRef.addEventListener("scroll", handleScroll);
@@ -97,46 +97,62 @@ const ToDoList = () => {
     setTasks(updatedTasks.sort((a, b) => a.completed - b.completed));
   };
 //   Delete Function
-  const deleteTask = (index) => {
-    setDeletedTasks([...deletedTasks, tasks[index]]);
-    setTasks(tasks.filter((_, i) => i !== index));
-  };
-
+const deleteTask = (index) => {
+     const confirmDelete = window.confirm("Are you sure you want to delete this task?");
+     if (confirmDelete) {
+       setDeletedTasks([...deletedTasks, tasks[index]]);
+       setTasks(tasks.filter((_, i) => i !== index));
+     }
+   };
+   
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="container-fluid d-flex flex-column vh-100">
      {/* Header Starts */}
-      <header style={{ width: "100vw" }} className="bg-info text-white p-3 text-center fw-bold">
-      To-Do List
-      </header>
+      <header 
+        style={{
+          background: "linear-gradient(90deg, #ff7300, #ffcc00)", // Choose any gradient
+          boxShadow: "4px 0px 10px rgba(0, 0, 0, 0.2)",
+          color: "white",
+        }}
+        
+    className="bg-info text-white p-2  start-0 end-0 text-center fw-bold">
+  <h1 className="fw-bold display-5 m-0">To-Do List App</h1>
+  </header>
       {/* Header End */}
 
-     <div className="row flex-grow-1 overflow-hidden">
+     <div className="row flex-grow-1 h-100 overflow-hidden">
        {/*Left Sidebar Starts    */}
-        <aside className="col-md-2 bg-secondary text-white p-3 d-none d-md-flex flex-column position-sticky top-0 vh-100">
+        <aside style={{
+  background: "linear-gradient(90deg, #6a3093, #a044ff)",
+  boxShadow: "4px 0px 10px rgba(0, 0, 0, 0.2)",
+  color: "white",
+  pointerEvents:"cursor",
+}}
+ className="col-md-2 bg-secondary text-white p-3 d-none d-md-flex flex-column position-sticky top-0 vh-100">
       <div className="mb-4 d-flex align-items-center">
         <FontAwesomeIcon icon={faTachometerAlt} className="me-2" />
-        <span className="fw-bold">DashBoard</span>
+        <span  style={{cursor:"pointer"}} className="fw-bold">DashBoard</span>
       </div>
       <div className="mb-4 d-flex align-items-center">
         <FontAwesomeIcon icon={faUsers} className="me-2" />
-        <span className="fw-bold">Users</span>
+        <span style={{cursor:"pointer"}} className="fw-bold">Users</span>
       </div>
       <div className="mb-4 d-flex align-items-center">
         <FontAwesomeIcon icon={faEnvelope} className="me-2" />
-        <span className="fw-bold">Message</span>
+        <span style={{cursor:"pointer"}} className="fw-bold">Message</span>
       </div>
       <div className="mb-4 d-flex align-items-center">
         <FontAwesomeIcon icon={faGift} className="me-2" />
-        <span className="fw-bold">Rewards</span>
+        <span  style={{cursor:"pointer"}} className="fw-bold">Rewards</span>
       </div>
       <div className="mb-4 d-flex align-items-center">
         <FontAwesomeIcon icon={faChartBar} className="me-2" />
-        <span className="fw-bold">Reports</span>
+        <span style={{cursor:"pointer"}} className="fw-bold">Reports</span>
       </div>
       <div className="mb-4 d-flex align-items-center">
         <FontAwesomeIcon icon={faCog} className="me-2" />
-        <span className="fw-bold">Settings</span>
+        <span style={{cursor:"pointer"}} className="fw-bold">Settings</span>
       </div>
     </aside>
      {/* Left Sidebar End */}
@@ -170,8 +186,13 @@ const ToDoList = () => {
          
           {/* Right Sidebar Starts */}
           {deletedTasks.length > 0 && (
-            <aside className="col-md-2 bg-warning p-3 position-sticky top-0 vh-100">
-              <h5 className="fw-bold">Deleted Items</h5>
+            <aside  style={{
+               background: "linear-gradient(90deg, #6a3093, #a044ff)",
+               boxShadow: "4px 0px 10px rgba(0, 0, 0, 0.2)",
+               color: "white",
+             }}
+             className="col-md-2 bg-secondary p-3 position-sticky top-0 vh-100">
+              <h5 className="fw-bold text-white">Deleted Items</h5>
               <ul className="list-group">
                 {deletedTasks.map((task, index) => (
                   <li key={index} className="list-group-item text-muted text-decoration-line-through">
@@ -185,7 +206,12 @@ const ToDoList = () => {
 
         </div>
         {/* Footer Content Start */}
-        <footer ref={footerRef} className={`bg-secondary text-white p-3 text-center ${showFooter ? "d-block" : "d-none"} position-fixed bottom-0 w-100`}>© 2025 Task Manager | Using React  | All rights reserved.</footer>
+        <footer style={{
+  background: "linear-gradient(90deg, #ff7300, #ffcc00)", // Choose any gradient
+  boxShadow: "4px 0px 10px rgba(0, 0, 0, 0.2)",
+  color: "white",
+}}
+ref={footerRef} className={`bg-warning text-white  m-0 p-3 text-center ${showFooter ? "d-block" : "d-none"} position-fixed start-0 bottom-0 w-100`}>© 2025 Task Manager | Using React  | All rights reserved.</footer>
         {/* Footer Content End*/}
 
       </div>
