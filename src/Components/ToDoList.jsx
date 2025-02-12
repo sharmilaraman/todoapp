@@ -44,9 +44,13 @@ const Task = ({ task, index, moveTask, toggleComplete, deleteTask }) => {
           onChange={() => toggleComplete(index)}
           className="me-2"
         />
-        <span className={task.completed ? " text-muted" : ""}>{task.text}</span>
+        <span className={task.completed ? "text-decoration-line-through" : ""}>{task.text}</span>
       </div>
-      <button className="btn btn-danger btn-sm" onClick={() => deleteTask(index)}>Delete</button>
+      {!task.completed && (
+        <button className="btn btn-danger btn-sm" onClick={() => deleteTask(index)}>
+          Delete
+        </button>
+        )}
     </li>
   );
 };
@@ -86,7 +90,7 @@ const ToDoList = () => {
   //Add Task Function
   const addTask = () => {
     if (newTask.trim()) {
-      setTasks([...tasks, { text: newTask, completed: false }]);
+      setTasks([{ id: Date.now(), text: newTask, completed: false }, ...tasks]);
       setNewTask("");
     }
   };
@@ -98,7 +102,7 @@ const ToDoList = () => {
   };
 //   Delete Function
 const deleteTask = (index) => {
-     const confirmDelete = window.confirm("Are you sure you want to delete this task?");
+     const confirmDelete = window.confirm("Are you sure to delete this task?");
      if (confirmDelete) {
        setDeletedTasks([...deletedTasks, tasks[index]]);
        setTasks(tasks.filter((_, i) => i !== index));
@@ -111,7 +115,7 @@ const deleteTask = (index) => {
      {/* Header Starts */}
       <header 
         style={{
-          background: "linear-gradient(90deg, #ff7300, #ffcc00)", // Choose any gradient
+          background: "linear-gradient(90deg, #ff7300, #ffcc00)",
           boxShadow: "4px 0px 10px rgba(0, 0, 0, 0.2)",
           color: "white",
         }}
@@ -195,7 +199,7 @@ const deleteTask = (index) => {
               <h5 className="fw-bold text-white">Deleted Items</h5>
               <ul className="list-group">
                 {deletedTasks.map((task, index) => (
-                  <li key={index} className="list-group-item text-muted text-decoration-line-through">
+                  <li key={index} className="list-group-item text-muted">
                     {task.text}
                   </li>
                 ))}
@@ -207,7 +211,7 @@ const deleteTask = (index) => {
         </div>
         {/* Footer Content Start */}
         <footer style={{
-  background: "linear-gradient(90deg, #ff7300, #ffcc00)", // Choose any gradient
+  background: "linear-gradient(90deg, #ff7300, #ffcc00)", 
   boxShadow: "4px 0px 10px rgba(0, 0, 0, 0.2)",
   color: "white",
 }}
