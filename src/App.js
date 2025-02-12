@@ -1,13 +1,12 @@
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
-import TodoList from './Components/ToDoList';
-function App() {
+import React from 'react'
+import ToDoList from './Components/TodoList'
+
+const App = () => {
   return (
-    <div className="App">
-      <TodoList />
+    <div className='App'>
+      <ToDoList />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
