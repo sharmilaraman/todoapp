@@ -12,7 +12,7 @@ import {
   faCog,
 } from "@fortawesome/free-solid-svg-icons";
 
-
+// Drag-and-Dop Functionality
 const ItemType = "TASK";
 
 const Task = ({ task, index, moveTask, toggleComplete, deleteTask }) => {
